@@ -2,18 +2,19 @@ require "date"
 require 'optparse'
 day = Date.today
 
+option = {}
 opt = OptionParser.new
-opt.on('-m') {|v| p v}
+opt.on('-m [value]') {|v| option[:m] = v}
 opt.parse!(ARGV)
 
 if opt.parse!(ARGV)
-  mon = {opt.parse!(ARGV)}[0].to_s
+  mon = option[:m].to_i
 else
   mon = day.mon
 end
 
-year = Date.today.year
-head = Date.new(year, mon, 1).strftime("%B月, %Y")
+year = day.year
+head = Date.new(year, mon, 1).strftime("%m月, %Y")
 firstday = Date.new(year, mon, 1).wday
 lastday = Date.new(year, mon, -1).day
 week = %w(Su Mo Tu We Th Fr Sa)
@@ -29,3 +30,5 @@ wday = firstday
     puts "\n"
   end
 end
+
+
