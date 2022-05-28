@@ -15,24 +15,25 @@ mon = if option[:m]
 
 year = day.year
 head = Date.new(year, mon, 1).strftime("%m月, %Y")
-puts head.center(20)    # 20文字分センターによせる
+puts head.center(20)
 
 week = %w(日 月 火 水 木 金 土)
 puts week.join(" ")
 
-firstday = Date.new(year, mon, 1).wday
-print "   " * firstday    # 曜日の数値分余白をつくる。３＊曜日
+first_wday = Date.new(year, mon, 1).wday
+print "   " * first_wday    # 曜日の数値分余白をつくる。３＊曜日
 
 lastday = Date.new(year, mon, -1).day
+wday = first_wday
 (1..lastday).each do |date|    # 1~最終日まで繰り返し
-  print date.to_s.rjust(2) + " "    # 日付を右寄せで表示
-  firstday += 1
-  if firstday % 7 == 0    # 土曜日まで表示したら改行
+  print date.to_s.rjust(2) + " "
+  wday += 1
+  if wday % 7 == 0    # 土曜日まで表示したら改行
     print "\n"
   end
 end
-if firstday % 7 != 0
-  print "\n"    # 最後の行改行
+if wday % 7 != 0
+  print "\n"    # %表示を消すため最後の行改行
 end
 
 
